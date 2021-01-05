@@ -1,0 +1,18 @@
+  
+name: Tevel Swap Version Action
+author: "Tevel"
+description: 'Swap version in package file for pypi, npm, conan'
+branding:
+  icon: 'git-branch'
+  color: 'gray-dark'
+inputs:
+  new_version:
+    required: true
+    description: 'Specify the new version to update'
+  file_path:
+    required: false
+    description: 'Change file path'
+    default: './'
+runs:
+  using: 'node12'
+  main: 'index.js'

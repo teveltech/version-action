@@ -1,0 +1,23 @@
+{
+  "name": "version-action",
+  "version": "1.0.0",
+  "description": "tevel version github action",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teveltech/version-action.git"
+  },
+  "author": "or shefi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teveltech/version-action/issues"
+  },
+  "homepage": "https://github.com/teveltech/version-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "edit-json-file": "^1.5.0",
+    "semver": "^7.3.4"
+  },
+  "devDependencies": {}
+}
