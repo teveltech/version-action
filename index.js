@@ -11,7 +11,7 @@ const projectType = detectProjectType(filePath)
 if (projectType){
     const cleanVersion = semver.valid(newVersion)
     if(cleanVersion){
-        switchVersionInFile(projectType, cleanVersion)
+        switchVersionInFile(projectType, cleanVersion, filePath)
     }
 }
 

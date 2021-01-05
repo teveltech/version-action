@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "tevel version github action",
   "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teveltech/version-action.git"

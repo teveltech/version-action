@@ -1,0 +1,45 @@
+from conans import ConanFile, CMake, tools
+import os 
+
+__version__ = "4.1.5"
+
+
+class CameraDriverConan(ConanFile):
+    name = "cameraDriver"
+    version = __version__
+    license = "Tevel"
+    author = "Or or@tevel-tech.com"
+    description = "camera driver init all cameras specified in config file"
+    topics = ("HAL", "camera", "driver")
+    settings = "os", "compiler", "build_type", "arch"
+    options = {"shared": [True, False]}
+    default_options = "shared=True"
+    generators = "cmake"
+    exports_sources = "*"
+    requires = "utilities/2.0.2@tevel/master",\
+               "sharedMemory/1.6.4@tevel/master",\
+               "systemConfig/3.3.6@tevel/master",\
+               "driverPrototype/1.9.10@tevel/master",\
+               "eigen/3.3.7@conan/stable",\
+               "librealsense/2.39.0@tevel/master"
+    build_requires = "cmake_installer/[3.13.*]@conan/stable"
+    
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure(source_folder=".")
+        with open("./include/version.h", "w") as version_file:
+            version_file.write("#define VERSION \"" + __version__ + "\"")
+        cmake.build()
+
+    def package(self):
+        self.copy("*.h*", dst="include", keep_path=False)
+        self.copy("*.lib", dst="lib", keep_path=False)
+        self.copy("*.dll", dst="bin", keep_path=False)
+        self.copy("*.so", dst="lib", keep_path=False)
+        self.copy("*.dylib", dst="lib", keep_path=False)
+        self.copy("*.a", dst="lib", keep_path=False)
+        self.copy("bin/*", dst="bin", keep_path=False)
+
+    def package_info(self):
+        self.cpp_info.libs = ["cameraDriver"]
+
