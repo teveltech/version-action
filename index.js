@@ -15,6 +15,7 @@ if (projectType === undefined){
 core.info(`Detected project type: ${projectType}`)
 
 if (projectType){
+    core.info(`New version: ${newVersion}`)
     const cleanVersion = semver.clean(newVersion, { loose: true })
     core.info(`Clean version: ${cleanVersion}`)
     if(cleanVersion){
