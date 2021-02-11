@@ -1,8 +1,8 @@
 const fs = require('fs')
 const editJsonFile = require("edit-json-file");
 
-const conanRegex = /(?<=version\s*=)(.*)(?=\n)/g
-const pythonRegex = /(?<=version\s*=)(.*)(?=,)/g
+const conanRegex = /(?<=__version__.=.")(.*)(?="\n)/g
+const pythonRegex = /(?<=__version__.=.")(.*)(?="\n)/g
 
 
 const packageTypes = {
@@ -37,14 +37,14 @@ const switchVersionInFile = (project_type, new_version, file_path='./') => {
     
         case packageTypes.PYTHON:
             let setupPy = fs.readFileSync(file_path + project_type, 'utf8')
-            setupPy = setupPy.replace(pythonRegex, `"${new_version}"`)
+            setupPy = setupPy.replace(pythonRegex, `${new_version}`)
             fs.writeFileSync(file_path + project_type, setupPy)
             break;
     
     
         case packageTypes.CONAN:
             let conanFile = fs.readFileSync(file_path + project_type, 'utf8')
-            conanFile = conanFile.replace(conanRegex, `"${new_version}"`)
+            conanFile = conanFile.replace(conanRegex, `${new_version}`)
             fs.writeFileSync(file_path + project_type, conanFile)
             break;
     

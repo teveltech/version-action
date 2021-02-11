@@ -18,7 +18,7 @@ describe("Identify project type", () => {
 })
 
 describe("Replace version in file", () => {
-    const newVersion = "v1.0.1"
+    const newVersion = "1.0.1-test-13"
     test('Replace node project version', () => {
         fs.copyFileSync('./test/mocks/npm/package.orig', './test/mocks/npm/package.json')
 
@@ -34,7 +34,7 @@ describe("Replace version in file", () => {
         const file = fs.readFileSync('./test/mocks/python/setup.py', 'utf-8')
         const res = file.match(utils.pythonRegex)[0]
 
-        expect(res).toBe(`"${newVersion}"`);
+        expect(res).toBe(`${newVersion}`);
     });
     test('Replace conan project version', () => {
         fs.copyFileSync('./test/mocks/conan/conanfile.orig', './test/mocks/conan/conanfile.py')
@@ -44,6 +44,6 @@ describe("Replace version in file", () => {
         const file = fs.readFileSync('./test/mocks/conan/conanfile.py', 'utf-8')
         const res = file.match(utils.conanRegex)[0]
 
-        expect(res).toBe(`"${newVersion}"`);
+        expect(res).toBe(`${newVersion}`);
     });
 })
