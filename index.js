@@ -18,7 +18,7 @@ if (projectType){
     core.info(`New version: ${newVersion}`)
     if(newVersion.includes("-")){
         core.info(`Found underscores in ${newVersion}`)
-        newVersion = newVersion.replaceAll('_', '-')
+        newVersion = newVersion.replace(/_/g, '-')
         core.info(`Corrected version: ${newVersion}`)
     }
     const cleanVersion = semver.clean(newVersion, { loose: true })
