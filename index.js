@@ -9,13 +9,14 @@ let filePath = core.getInput('file_path');
 const projectType = detectProjectType(filePath)
 
 if (projectType === undefined){
-    core.info("Cannot detect project type")
+    core.error("Cannot detect project type")
 }
 
 core.info(`Detected project type: ${projectType}`)
 
 if (projectType){
-    const cleanVersion = semver.valid(newVersion)
+    // const cleanVersion = semver.valid(newVersion)
+    const cleanVersion = semver.clean(newVersion, { loose: true })
     if(cleanVersion){
         switchVersionInFile(projectType, cleanVersion, filePath)
     }
