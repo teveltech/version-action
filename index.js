@@ -15,12 +15,9 @@ if (projectType === undefined){
 core.info(`Detected project type: ${projectType}`)
 
 if (projectType){
-    // const cleanVersion = semver.valid(newVersion)
     const cleanVersion = semver.clean(newVersion, { loose: true })
+    core.info(`Clean version: ${cleanVersion}`)
     if(cleanVersion){
         switchVersionInFile(projectType, cleanVersion, filePath)
     }
 }
-
-
-
