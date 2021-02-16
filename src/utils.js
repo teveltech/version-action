@@ -1,5 +1,6 @@
 const fs = require('fs')
 const editJsonFile = require("edit-json-file");
+const YAML = require('yaml')
 
 const conanRegex = /(?<=__version__.=.")(.*)(?="\n)/g
 const pythonRegex = /(?<=__version__.=.")(.*)(?="\n)/g
@@ -8,7 +9,8 @@ const pythonRegex = /(?<=__version__.=.")(.*)(?="\n)/g
 const packageTypes = {
     NPM: 'package.json',
     PYTHON: 'setup.py',
-    CONAN: 'conanfile.py'
+    CONAN: 'conanfile.py',
+    HELM: 'Chart.yaml'
 };
 
 const detectProjectType = (path) => {
@@ -21,6 +23,9 @@ const detectProjectType = (path) => {
     }
     else if(files.includes(packageTypes.CONAN)){
         return packageTypes.CONAN
+    }
+    else if(files.includes(packageTypes.HELM)){
+        return packageTypes.HELM
     }
     else{
         return undefined
@@ -47,7 +52,17 @@ const switchVersionInFile = (project_type, new_version, file_path='./') => {
             conanFile = conanFile.replace(conanRegex, `${new_version}`)
             fs.writeFileSync(file_path + project_type, conanFile)
             break;
-    
+
+        case packageTypes.HELM:
+            let helmFile = fs.readFileSync(file_path + project_type, 'utf8')
+            let chartYaml = YAML.parse(helmFile)
+            chartYaml['version'] = new_version
+            const fileString = YAML.stringify(chartYaml)
+            fs.writeFileSync(file_path + project_type, fileString, {
+                encoding: 'utf8'
+            })
+            break;
+
         default:
             return core.ExitCode.Failure
     }

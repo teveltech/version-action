@@ -1,11 +1,9 @@
 {
   "name": "version-action",
-  "version": "1.0.0",
+  "version": "1.0.1-test-13",
   "description": "tevel version github action",
   "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teveltech/version-action.git"
@@ -19,8 +17,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "edit-json-file": "^1.5.0",
-    "semver": "^7.3.4",
-    "yaml": "^1.10.0"
+    "semver": "^7.3.4"
   },
   "devDependencies": {}
 }

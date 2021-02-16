@@ -1,5 +1,7 @@
 const utils = require('./utils');
 const fs = require('fs');
+const YAML = require('yaml')
+
 
 
 describe("Identify project type", () => {
@@ -43,6 +45,17 @@ describe("Replace version in file", () => {
 
         const file = fs.readFileSync('./test/mocks/conan/conanfile.py', 'utf-8')
         const res = file.match(utils.conanRegex)[0]
+
+        expect(res).toBe(`${newVersion}`);
+    });
+    test('Replace helm project version', () => {
+        fs.copyFileSync('./test/mocks/helm/Chart.orig', './test/mocks/helm/Chart.yaml')
+
+        utils.switchVersionInFile(utils.packageTypes.HELM, newVersion, './test/mocks/helm/')
+
+        const file = fs.readFileSync('./test/mocks/helm/Chart.yaml', 'utf-8')
+        let chartYaml = YAML.parse(file)
+        const res = chartYaml['version']
 
         expect(res).toBe(`${newVersion}`);
     });
