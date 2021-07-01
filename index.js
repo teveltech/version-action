@@ -15,7 +15,7 @@ if (projectTypes.length === 0){
 core.info(`Detected project type: ${projectTypes}`)
 
 if (projectTypes){
-    for (projectType in projectTypes) {
+    projectTypes.foreach(projectType => {
         core.info(`New version: ${newVersion}`)
         if(newVersion.includes("-")){
             core.info(`Found underscores in ${newVersion}`)
@@ -27,5 +27,5 @@ if (projectTypes){
         if(cleanVersion){
             switchVersionInFile(projectType, cleanVersion, filePath)
         }
-    }
+    })
 }
