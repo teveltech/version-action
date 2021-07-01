@@ -15,7 +15,7 @@ if (projectTypes.length === 0){
 core.info(`Detected project type: ${projectTypes}`)
 
 if (projectTypes){
-    projectTypes.foreach(projectType => {
+    projectTypes.forEach(projectType => {
         core.info(`New version: ${newVersion}`)
         if(newVersion.includes("-")){
             core.info(`Found underscores in ${newVersion}`)
