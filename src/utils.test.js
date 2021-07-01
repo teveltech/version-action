@@ -6,16 +6,20 @@ const YAML = require('yaml')
 
 describe("Identify project type", () => {
     test('Identify node project', () => {
-        expect(utils.detectProjectType('./test/mocks/npm')).toBe(utils.packageTypes.NPM);
+        expect(utils.detectProjectType('./test/mocks/npm')).toContain(utils.packageTypes.NPM);
     });
     test('Identify python project', () => {
-        expect(utils.detectProjectType('./test/mocks/python')).toBe(utils.packageTypes.PYTHON);
+        expect(utils.detectProjectType('./test/mocks/python')).toContain(utils.packageTypes.PYTHON);
     });
     test('Identify conan project', () => {
-        expect(utils.detectProjectType('./test/mocks/conan')).toBe(utils.packageTypes.CONAN);
+        expect(utils.detectProjectType('./test/mocks/conan')).toContain(utils.packageTypes.CONAN);
     });
-    test('Identify undefined project', () => {
-        expect(utils.detectProjectType('./test/mocks/')).toBe(undefined);
+    test('Identify multiple files', () => {
+        fs.copyFileSync('./test/mocks/multiple/setup.orig', './test/mocks/multiple/setup.py')
+        fs.copyFileSync('./test/mocks/multiple/conanfile.orig', './test/mocks/multiple/conanfile.py')
+        const projectTypes = utils.detectProjectType('./test/mocks/multiple')
+        expect(projectTypes).toContain(utils.packageTypes.CONAN)
+        expect(projectTypes).toContain(utils.packageTypes.PYTHON)
     });
 })
 
@@ -51,6 +55,18 @@ describe("Replace version in file", () => {
     test('Replace helm project version', () => {
         fs.copyFileSync('./test/mocks/helm/Chart.orig', './test/mocks/helm/Chart.yaml')
 
+        utils.switchVersionInFile(utils.packageTypes.HELM, newVersion, './test/mocks/helm/')
+
+        const file = fs.readFileSync('./test/mocks/helm/Chart.yaml', 'utf-8')
+        let chartYaml = YAML.parse(file)
+        const res = chartYaml['version']
+
+        expect(res).toBe(`${newVersion}`);
+    });
+    test('Replace multiple projects version', () => {
+        
+
+        utils.switchVersionInFile(utils.packageTypes.HELM, newVersion, './test/mocks/helm/')
         utils.switchVersionInFile(utils.packageTypes.HELM, newVersion, './test/mocks/helm/')
 
         const file = fs.readFileSync('./test/mocks/helm/Chart.yaml', 'utf-8')

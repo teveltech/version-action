@@ -15,21 +15,20 @@ const packageTypes = {
 
 const detectProjectType = (path) => {
     var files = fs.readdirSync(path);
+    project_types = []
     if(files.includes(packageTypes.NPM)){
-        return packageTypes.NPM
+        project_types.push(packageTypes.NPM)
     }
-    else if(files.includes(packageTypes.PYTHON)){
-        return packageTypes.PYTHON
+    if(files.includes(packageTypes.PYTHON)){
+        project_types.push(packageTypes.PYTHON)
     }
-    else if(files.includes(packageTypes.CONAN)){
-        return packageTypes.CONAN
+    if(files.includes(packageTypes.CONAN)){
+        project_types.push(packageTypes.CONAN)
     }
-    else if(files.includes(packageTypes.HELM)){
-        return packageTypes.HELM
+    if(files.includes(packageTypes.HELM)){
+        project_types.push(packageTypes.HELM)
     }
-    else{
-        return undefined
-    }
+    return project_types
 }
 
 const switchVersionInFile = (project_type, new_version, file_path='./') => {
