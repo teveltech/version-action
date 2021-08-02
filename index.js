@@ -17,7 +17,7 @@ core.info(`Detected project type: ${projectTypes}`)
 if (projectTypes){
     projectTypes.forEach(projectType => {
         core.info(`New version: ${newVersion}`)
-        if(newVersion.includes("-")){
+        if(newVersion.includes("_")){
             core.info(`Found underscores in ${newVersion}`)
             newVersion = newVersion.replace(/_/g, '-')
             core.info(`Corrected version: ${newVersion}`)
