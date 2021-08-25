@@ -9,7 +9,7 @@ let filePath = core.getInput('file_path');
 const projectTypes = detectProjectType(filePath)
 
 if (projectTypes.length === 0){
-    core.error("Cannot detect project type")    
+    core.setFailed("Cannot detect project type")    
 }
 
 core.info(`Detected project type: ${projectTypes}`)
