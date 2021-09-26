@@ -40,7 +40,7 @@ const switchVersionInFile = (project_type, new_version, file_path='./') => {
             break;
     
         case packageTypes.PYTHON:
-            new_version = new_version.replace("-", "+")
+            new_version = new_version.replace("-", "b0+", 1)
             let setupPy = fs.readFileSync(file_path + project_type, 'utf8')
             setupPy = setupPy.replace(pythonRegex, `${new_version}`)
             fs.writeFileSync(file_path + project_type, setupPy)
