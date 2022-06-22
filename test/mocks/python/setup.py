@@ -34,7 +34,7 @@ setup(
         'pythonGlobals>=1.2.3',
         'loggerWrapper>=1.6.4',
         'sharedMemoryWrapper>=1.5.0',
-        'numpy==1.15.0',
+        'numpy==1.22.0',
     ],
     # url='https://github.com/bast/somepackage',
 
