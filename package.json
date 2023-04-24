@@ -20,7 +20,7 @@
     "@actions/core": "^1.2.6",
     "edit-json-file": "^1.5.0",
     "semver": "^7.3.4",
-    "yaml": "^1.10.0"
+    "yaml": "^2.2.2"
   },
   "devDependencies": {}
 }
