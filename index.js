@@ -22,7 +22,7 @@ if (projectTypes){
             newVersion = newVersion.replace(/_/g, '-')
             core.info(`Corrected version: ${newVersion}`)
         }
-        const cleanVersion = semver.clean(newVersion, { loose: true })
+        const cleanVersion = newVersion
         core.info(`Clean version: ${cleanVersion}`)
         if(cleanVersion){
             switchVersionInFile(projectType, cleanVersion, filePath)
